@@ -1,0 +1,33 @@
+.content-section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    padding: 30px;
+    background-color: #f8f8f8;
+    margin: 10px;
+    margin-bottom: 10%;
+    flex-direction: column;
+  }
+  .content-section h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .content-section p {
+    font-size: 1rem;
+    color: #666;
+    margin-left: 2%;
+  }
+  
+  .content-section img {
+    max-width: 50%;
+    height: auto;
+    border-radius: 5px;
+  }
+
+  .content-section button {
+    margin: .5%;
+    align-items: center;
+  }

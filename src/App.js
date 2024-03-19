@@ -1,25 +1,57 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import LoginPage from "./LoginPage";
+import RegistrationForm from "./RegistrationForm";
+import ListingForm from "./ListingForm";
 
-function App() {
+const App = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+  };
+
+  const [selection, setSelection] = useState("registration"); 
+  const handleSelectionChange = (event) => {
+    setSelection(event.target.value);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {!isLoggedIn ? (
+        <LoginPage onLogin={handleLogin} />
+      ) : (
+        <div>
+          <h1>EZrest Administration Management System</h1>
+
+          <form>
+            <label>
+              <input
+                type="radio"
+                value="registration"
+                checked={selection === "registration"}
+                onChange={handleSelectionChange}
+              />
+              Registration
+            </label>
+            <label>
+              <input
+                type="radio"
+                value="listing"
+                checked={selection === "listing"}
+                onChange={handleSelectionChange}
+              />
+              Listing
+            </label>
+          </form>
+          {selection === "registration" ? (
+            <RegistrationForm />
+          ) : (
+            <ListingForm />
+          )}
+        </div>
+      )}
     </div>
   );
-}
+};
 
 export default App;

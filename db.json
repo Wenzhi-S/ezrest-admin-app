@@ -1,0 +1,23 @@
+{
+    "registrations": [
+      {
+        "id": 1,
+        "name": "John Doe",
+        "email": "johndoe@example.com",
+        "type": "tenant",
+        "identification": "https://www.jumio.com/app/uploads/2020/09/US-ID-1.png",
+        "status": "pending"
+      },
+      {
+        "id": 2,
+        "name": "Jane Smith",
+        "email": "janesmith@example.com",
+        "type": "landlord",
+        "identification": "https://www.jumio.com/app/uploads/2020/09/US-ID-1.png",
+        "status": "pending"
+      }
+    ],
+    "listings": [
+      
+    ]
+  }
