@@ -1,5 +1,24 @@
 import React, { useState, useEffect } from "react";
-import "./RegistrationForm.css"
+import "./RegistrationForm.css";
+
+export const getButtonStyle = (currentStatus, buttonStatus) => {
+  switch (currentStatus) {
+    case "approve":
+      return buttonStatus === "approve"
+        ? { backgroundColor: "green", color: "white" }
+        : {};
+    case "decline":
+      return buttonStatus === "decline"
+        ? { backgroundColor: "red", color: "white" }
+        : {};
+    case "pending":
+      return buttonStatus === "pending"
+        ? { backgroundColor: "gray", color: "white" }
+        : {};
+    default:
+      return {};
+  }
+};
 
 const RegistrationForm = () => {
   const [registrations, setRegistrations] = useState([]);
@@ -10,7 +29,7 @@ const RegistrationForm = () => {
     fetch("http://localhost:3001/registrations")
       .then((response) => response.json())
       .then((data) => {
-        setRegistrations(data.filter(reg => reg.status === "pending"));
+        setRegistrations(data.filter((reg) => reg.status === "pending"));
         const initialComments = data.reduce(
           (acc, registration) => ({
             ...acc,
@@ -20,7 +39,9 @@ const RegistrationForm = () => {
         );
         setComments(initialComments);
       })
-      .catch((error) => console.error("Error fetching registration data:", error));
+      .catch((error) =>
+        console.error("Error fetching registration data:", error)
+      );
   }, []);
 
   const updateStatusAndMoveNext = (id, newStatus) => {
@@ -30,7 +51,9 @@ const RegistrationForm = () => {
       }
       return registration;
     });
-    setRegistrations(updatedRegistrations.filter(reg => reg.status === "pending"));
+    setRegistrations(
+      updatedRegistrations.filter((reg) => reg.status === "pending")
+    );
     setCurrentIndex(0);
   };
 
@@ -39,15 +62,6 @@ const RegistrationForm = () => {
       ...comments,
       [id]: newComment,
     });
-  };
-
-  const getButtonStyle = (currentStatus, buttonStatus) => {
-    switch (currentStatus) {
-      case "approve": return buttonStatus === "approve" ? { backgroundColor: "green", color: "white" } : {};
-      case "decline": return buttonStatus === "decline" ? { backgroundColor: "red", color: "white" } : {};
-      case "pending": return buttonStatus === "pending" ? { backgroundColor: "gray", color: "white" } : {};
-      default: return {};
-    }
   };
 
   return (
@@ -83,26 +97,53 @@ const RegistrationForm = () => {
               <textarea
                 value={comments[registrations[currentIndex].id] || ""}
                 onChange={(e) =>
-                  handleCommentChange(registrations[currentIndex].id, e.target.value)
+                  handleCommentChange(
+                    registrations[currentIndex].id,
+                    e.target.value
+                  )
                 }
                 placeholder="Add a comment"
                 style={{ width: "100%", marginBottom: "10px" }}
               />
               <button
-                style={getButtonStyle(registrations[currentIndex].status, "approve")}
-                onClick={() => updateStatusAndMoveNext(registrations[currentIndex].id, "approve")}
+                style={getButtonStyle(
+                  registrations[currentIndex].status,
+                  "approve"
+                )}
+                onClick={() =>
+                  updateStatusAndMoveNext(
+                    registrations[currentIndex].id,
+                    "approve"
+                  )
+                }
               >
                 Approve
               </button>
               <button
-                style={getButtonStyle(registrations[currentIndex].status, "decline")}
-                onClick={() => updateStatusAndMoveNext(registrations[currentIndex].id, "decline")}
+                style={getButtonStyle(
+                  registrations[currentIndex].status,
+                  "decline"
+                )}
+                onClick={() =>
+                  updateStatusAndMoveNext(
+                    registrations[currentIndex].id,
+                    "decline"
+                  )
+                }
               >
                 Decline
               </button>
               <button
-                style={getButtonStyle(registrations[currentIndex].status, "pending")}
-                onClick={() => updateStatusAndMoveNext(registrations[currentIndex].id, "pending")}
+                style={getButtonStyle(
+                  registrations[currentIndex].status,
+                  "pending"
+                )}
+                onClick={() =>
+                  updateStatusAndMoveNext(
+                    registrations[currentIndex].id,
+                    "pending"
+                  )
+                }
               >
                 Set to Pending
               </button>
